@@ -1,0 +1,1 @@
+# write logic to process the incoming query, pass it to the model, and return a one-word emotion.
