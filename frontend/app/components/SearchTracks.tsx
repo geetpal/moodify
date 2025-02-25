@@ -6,16 +6,27 @@ import axios from 'axios';
 export default function SearchTracks({ initialTracks }: { initialTracks: string }) {
   const [query, setQuery] = useState("");
   const [tracks, setTracks] = useState([]);
+  const [combinedQuery, setCombinedQuery] = useState("");
 
   async function searchTracks() {
     if (!query || query === "") {
       setTracks([]);
       return;
     }
+    // forward the query to the pythonbackend
+    try {
+      const res = await axios.post(`http://127.0.0.1:8000/send-query-to-model`, { query });
+      const emotion = res.data.emotion;
+      console.log(emotion);
+      setCombinedQuery(`${query} ${emotion}`);
+    } catch (error) {
+      console.error("Error sending user query to model:", error);
+    }
 
+    // send the combined query to the spotify api
     try {
       const res = await axios.get(`/api/spotify/search`, {
-        params: { query }
+        params: { query: combinedQuery }
       });
       setTracks(res.data.tracks.items);
     } catch (error) {

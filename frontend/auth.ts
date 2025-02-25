@@ -14,8 +14,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       session.accessToken = token.accessToken as string;
       return session;
     },
-    // async redirect({ url, baseUrl }) {
-    //   return `${baseUrl}/dashboard`;
-    // },
   },
 })
