@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from model.hf_model import get_emotion, load_model_and_tokenizer
+from model.hf_model import get_emotion
 
 app = FastAPI()
 
@@ -19,11 +19,11 @@ class Query(BaseModel):
     query: str
 
 # get the user query from frontend and send it to the model
-tokenizer, model = load_model_and_tokenizer()
+# tokenizer, model = load_model_and_tokenizer()
 
 @app.post("/send-query-to-model")
 async def send_query_to_model(query: Query):
-    emotion = get_emotion(query.query, tokenizer, model)
+    emotion = get_emotion(query.query)
     return {"emotion": emotion}
 
 
