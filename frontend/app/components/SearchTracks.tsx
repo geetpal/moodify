@@ -17,8 +17,9 @@ export default function SearchTracks({ initialTracks }: { initialTracks: string 
     try {
       const res = await axios.post(`http://127.0.0.1:8000/send-query-to-model`, { query });
       const emotion = res.data.emotion;
-      console.log(emotion);
+      console.log("emotions are", emotion);
       setCombinedQuery(`${query} ${emotion}`);
+      console.log("combined query is", combinedQuery);
     } catch (error) {
       console.error("Error sending user query to model:", error);
     }
@@ -53,10 +54,10 @@ export default function SearchTracks({ initialTracks }: { initialTracks: string 
       <div className="mt-6 grid grid-cols-5 gap-4">
         {tracks.map((track: any) => (
           <div key={track.id} className="shadow-lg p-4 rounded-lg bg-gray-900">
-            <h2 className="font-semibold text-white">{track.name}</h2>
+            {/* <h2 className="font-semibold text-white">{track.name}</h2>
             <p className="text-gray-500">
               {track.artists.map((artist: any) => artist.name).join(", ")}
-            </p>
+            </p> */}
             <iframe
               src={`https://open.spotify.com/embed/track/${track.id}`}
               width="100%"
