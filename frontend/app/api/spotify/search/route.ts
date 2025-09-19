@@ -17,6 +17,9 @@ export async function GET(request: Request) {
   }
 
   try {
+    console.log("Searching Spotify with query:", query);
+    console.log("Access token exists:", !!session.accessToken);
+    
     const res = await axios.get("https://api.spotify.com/v1/search", {
       params: {
         q: query,
@@ -34,6 +37,9 @@ export async function GET(request: Request) {
     const data = res.data;
     return NextResponse.json(data);
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("Spotify API Error:", error.response?.data || error.message);
+    return NextResponse.json({ 
+      error: error.response?.data?.error?.message || error.message 
+    }, { status: 500 });
   }
 }
