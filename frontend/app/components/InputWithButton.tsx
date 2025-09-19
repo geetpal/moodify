@@ -1,13 +1,14 @@
 import { Button } from "@/components/ui/button"
 import {Input} from "@/components/ui/input"
 
-export function InputWithButton({onChange, onClick, children, disabled}: {onChange: (e: React.ChangeEvent<HTMLInputElement>) => void, onClick: () => void, children: React.ReactNode, disabled: boolean}) {
+export function InputWithButton({onChange, onClick, children, disabled, value}: {onChange: (e: React.ChangeEvent<HTMLInputElement>) => void, onClick: () => void, children: React.ReactNode, disabled: boolean, value: string}) {
   return (
     <div className="flex flex-row gap-3 w-full">
       <div className="flex-grow">
         <Input 
           type="text" 
           placeholder={children as string} 
+          value={value}
           onChange={onChange}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
