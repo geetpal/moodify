@@ -41,7 +41,7 @@ def get_synonyms_for_emotion(sentence, max_synonyms=3, similarity_threshold=0.9)
                     break
 
             all_synonyms.update(word_synonyms)
-
+    print("all synonyms are", all_synonyms)
     return list(all_synonyms)  
 
 def get_emotion(text):
