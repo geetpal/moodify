@@ -34,7 +34,7 @@ export function SearchProvider({ children }: { children: ReactNode }) {
     
     try {
       // First, get emotions from backend
-      const emotionResponse = await fetch('http://127.0.0.1:8000/send-query-to-model', {
+      const emotionResponse = await fetch(`${process.env.BACKEND_URL}/send-query-to-model`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
