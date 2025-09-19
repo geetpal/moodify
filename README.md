@@ -8,7 +8,7 @@ Moodify bridges the gap between how you feel and what you want to hear. Instead 
 
 Ever struggled to find music that matches your exact mood? Traditional music discovery relies on genres, artists, or vague keywords. But what if you could just say "I want to feel like I'm driving through the mountains at sunset" and get exactly that vibe?
 
-## Live Demo
+## Live Demo (Upcoming)
 
 **[Try Moodify →](#)**
 
