@@ -29,8 +29,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ConditionalAppBar />
-        <Providers>{children}</Providers>
+        <Providers>
+          <ConditionalAppBar />
+          {children}
+        </Providers>
       </body>
     </html>
   );

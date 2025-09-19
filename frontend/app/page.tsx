@@ -2,6 +2,7 @@
 import { SignInButton } from "@/components/ui/signinButton";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import Footer from "./components/Footer";
 
 export default async function Home() {
   const session = await auth();
@@ -25,7 +26,7 @@ export default async function Home() {
           
           {/* Tagline */}
           <h2 className="text-2xl md:text-4xl font-semibold text-white mb-6">
-            Discover Music That Puts You in Your Desired Mood
+            Discover music that puts you in your desired mood
           </h2>
           
           {/* Description */}
@@ -72,12 +73,7 @@ export default async function Home() {
         </div>
       </div>
       
-      {/* Footer */}
-      <div className="text-center py-8 border-t border-gray-800">
-        <p className="text-gray-500 text-sm">
-          Powered by Spotify API & Hugging Face AI • Made with ❤️ for music lovers
-        </p>
-      </div>
+      <Footer />
     </div>
   );
 }
