@@ -12,6 +12,8 @@ interface SearchContextType {
   error: string | null;
   clearError: () => void;
   clearAll: () => void;
+  emptyInputMessage: string | null;
+  clearEmptyInputMessage: () => void;
 }
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined);
@@ -21,11 +23,12 @@ export function SearchProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(false);
   const [tracks, setTracks] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [emptyInputMessage, setEmptyInputMessage] = useState<string | null>(null);
 
   const searchTracks = async () => {
     if (!query.trim()) {
       setTracks([]);
-      setError(null);
+      setEmptyInputMessage('Enter a mood or choose from suggestions');
       return;
     }
     
@@ -34,7 +37,7 @@ export function SearchProvider({ children }: { children: ReactNode }) {
     
     try {
       // First, get emotions from backend
-      const emotionResponse = await fetch(`${process.env.BACKEND_URL}/send-query-to-model`, {
+      const emotionResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/send-query-to-model`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,16 +80,18 @@ export function SearchProvider({ children }: { children: ReactNode }) {
   };
 
   const clearError = () => setError(null);
+  const clearEmptyInputMessage = () => setEmptyInputMessage(null);
   
   const clearAll = () => {
     setQuery('');
     setTracks([]);
     setError(null);
+    setEmptyInputMessage(null);
     setIsLoading(false);
   };
 
   return (
-    <SearchContext.Provider value={{ query, setQuery, searchTracks, isLoading, tracks, setTracks, error, clearError, clearAll }}>
+    <SearchContext.Provider value={{ query, setQuery, searchTracks, isLoading, tracks, setTracks, error, clearError, clearAll, emptyInputMessage, clearEmptyInputMessage }}>
       {children}
     </SearchContext.Provider>
   );

@@ -46,7 +46,7 @@ starlette==0.45.3
 sympy==1.13.1
 tiktoken==0.6.0
 tokenizers==0.21.0
-torch==2.6.0
+torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
 tqdm==4.67.1
 transformers==4.49.0
 typer==0.15.1
@@ -56,4 +56,5 @@ uvicorn==0.34.0
 uvloop==0.21.0
 watchfiles==1.0.4
 websockets==15.0
-wheel @ file:///opt/homebrew/Cellar/python%403.12/3.12.8/libexec/wheel-0.45.1-py3-none-any.whl#sha256=ff30fbe2536d325272e73cd91fbfbda0f3ea73559a5c26e22e9f5b65429fa0b9
+nltk==3.8.1
+wheel==0.45.1

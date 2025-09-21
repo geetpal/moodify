@@ -11,7 +11,7 @@ import Footer from "./Footer";
 const BACKEND_URL = process.env.BACKEND_URL;
 
 export default function SearchTracks({ initialTracks }: { initialTracks: string }) {
-  const { query, setQuery, tracks, setTracks, isLoading, searchTracks, error, clearError } = useSearch();
+  const { query, setQuery, tracks, setTracks, isLoading, searchTracks, error, clearError, emptyInputMessage, clearEmptyInputMessage } = useSearch();
   const [dynamicPlaceholder, setDynamicPlaceholder] = useState("");
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -77,10 +77,25 @@ export default function SearchTracks({ initialTracks }: { initialTracks: string 
     };
   }, [hasSearched]);
 
+  // Clear empty input message when user starts typing
+  useEffect(() => {
+    if (query.trim() && emptyInputMessage) {
+      clearEmptyInputMessage();
+    }
+  }, [query, emptyInputMessage, clearEmptyInputMessage]);
+
   // Custom search function that tracks if user has searched
   const handleSearch = () => {
     setHasSearched(true);
     searchTracks();
+  };
+
+  // Handle input change and clear empty input message
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+    if (e.target.value.trim() && emptyInputMessage) {
+      clearEmptyInputMessage();
+    }
   };
 
   // Static placeholder after first search
@@ -101,13 +116,19 @@ export default function SearchTracks({ initialTracks }: { initialTracks: string 
       <div className="w-full max-w-2xl px-4 mb-8">
         <InputWithButton 
           value={query}
-          onChange={(e) => setQuery(e.target.value)} 
+          onChange={handleInputChange} 
           onClick={handleSearch}
           disabled={isLoading}
           placeholder={hasSearched ? staticPlaceholder : displayText}
           onClear={() => setQuery('')}>
           {hasSearched ? staticPlaceholder : displayText}
         </InputWithButton>
+        
+        {emptyInputMessage && (
+          <div className="mt-4 text-center">
+            <p className="text-gray-400 text-sm">{emptyInputMessage}</p>
+          </div>
+        )}
         
         {!query && tracks.length === 0 && (
           <div className="mt-8">

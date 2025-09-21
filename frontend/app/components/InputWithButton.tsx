@@ -45,7 +45,11 @@ export function InputWithButton({onChange, onClick, children, disabled, value, p
                 <button
                   onClick={onClick}
                   disabled={disabled}
-                  className="mr-3 bg-gray-800/80 text-white rounded-full px-5 py-2.5 font-medium text-sm hover:bg-gray-700/80 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                  className={`mr-3 rounded-full px-5 py-2.5 font-medium text-sm transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm ${
+                    value.trim() 
+                      ? 'bg-white text-gray-900 hover:bg-gray-100' 
+                      : 'bg-gray-800/80 text-white hover:bg-gray-700/80'
+                  }`}
                 >
                   Search
                 </button>
