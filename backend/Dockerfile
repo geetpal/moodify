@@ -7,7 +7,6 @@ RUN pip install torch==2.6.0 --extra-index-url https://download.pytorch.org/whl/
 
 COPY . .
 
-# Download NLTK data during build time
-RUN python -c "import nltk; nltk.download('punkt_tab'); nltk.download('wordnet'); nltk.download('averaged_perceptron_tagger_eng')"
+RUN python -c "import nltk; nltk.download('punkt'); nltk.download('wordnet'); nltk.download('averaged_perceptron_tagger_eng')"
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
