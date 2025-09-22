@@ -1,13 +1,10 @@
 "use client"
-import { Button, buttonVariants } from "./button";
-import { signIn, signOut } from "next-auth/react";
 import { LogoutButton } from "./logoutButton";
-import {usePathname, useRouter} from "next/navigation";
+import {usePathname} from "next/navigation";
 import { useSearch } from "@/app/contexts/SearchContext";
 
 export default function AppBar() {
   const pathname = usePathname();
-  const router = useRouter();
   const { clearAll } = useSearch();
   const isDashboard = pathname?.startsWith("/dashboard");
   

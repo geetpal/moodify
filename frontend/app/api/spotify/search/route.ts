@@ -48,7 +48,6 @@ export async function GET(request: Request) {
     console.error("Response Data:", error.response?.data);
     console.error("Error Message:", error.message);
     
-    // Check if it's a token expiration issue
     if (error.response?.status === 401) {
       return NextResponse.json({ 
         error: "Spotify session expired. Please sign in again." 

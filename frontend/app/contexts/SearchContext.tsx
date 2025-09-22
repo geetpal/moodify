@@ -2,13 +2,20 @@
 
 import { createContext, useContext, useState, ReactNode } from 'react';
 
+interface Track {
+  id: string;
+  name: string;
+  artists: { name: string }[];
+  album: { name: string; images: { url: string }[] };
+}
+
 interface SearchContextType {
   query: string;
   setQuery: (query: string) => void;
   searchTracks: () => void;
   isLoading: boolean;
-  tracks: any[];
-  setTracks: (tracks: any[]) => void;
+  tracks: Track[];
+  setTracks: (tracks: Track[]) => void;
   error: string | null;
   clearError: () => void;
   clearAll: () => void;
@@ -21,7 +28,7 @@ const SearchContext = createContext<SearchContextType | undefined>(undefined);
 export function SearchProvider({ children }: { children: ReactNode }) {
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [tracks, setTracks] = useState<any[]>([]);
+  const [tracks, setTracks] = useState<Track[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [emptyInputMessage, setEmptyInputMessage] = useState<string | null>(null);
 
@@ -33,10 +40,9 @@ export function SearchProvider({ children }: { children: ReactNode }) {
     }
     
     setIsLoading(true);
-    setError(null); // Clear any previous errors
+    setError(null);
     
     try {
-      // First, get emotions from backend
       const emotionResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/send-query-to-model`, {
         method: 'POST',
         headers: {
@@ -51,14 +57,10 @@ export function SearchProvider({ children }: { children: ReactNode }) {
       
       const emotionData = await emotionResponse.json();
       const emotion = emotionData.emotion;
-      console.log("emotions are", emotion);
 
-      // Combine query with emotions (join array with spaces)
       const emotionString = Array.isArray(emotion) ? emotion.join(' ') : emotion;
       const combinedQuery = `${query} ${emotionString}`;
-      console.log("combined query is", combinedQuery);
 
-      // Then search Spotify
       const spotifyResponse = await fetch(`/api/spotify/search?query=${encodeURIComponent(combinedQuery)}`);
       
       if (!spotifyResponse.ok) {
@@ -71,9 +73,8 @@ export function SearchProvider({ children }: { children: ReactNode }) {
       const spotifyData = await spotifyResponse.json();
       setTracks(spotifyData.tracks?.items || []);
     } catch (error) {
-      console.error('Error fetching tracks:', error);
       setError(error instanceof Error ? error.message : 'Something went wrong. Please try again.');
-      setTracks([]); // Clear tracks on error
+      setTracks([]);
     } finally {
       setIsLoading(false);
     }

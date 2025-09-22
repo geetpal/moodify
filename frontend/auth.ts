@@ -27,7 +27,7 @@ async function refreshAccessToken(token: any) {
       ...token,
       accessToken: refreshedTokens.access_token,
       accessTokenExpires: Date.now() + refreshedTokens.expires_in * 1000,
-      refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
+      refreshToken: refreshedTokens.refresh_token ?? token.refreshToken,
     };
   } catch (error) {
     console.error("Error refreshing access token:", error);
@@ -50,15 +50,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account) {
         token.accessToken = account.access_token;
         token.refreshToken = account.refresh_token;
-        token.accessTokenExpires = account.expires_at ? account.expires_at * 1000 : Date.now() + 3600 * 1000; // Convert to milliseconds
+        token.accessTokenExpires = account.expires_at ? account.expires_at * 1000 : Date.now() + 3600 * 1000;
       }
       
-      // If access token is still valid, return it
       if (Date.now() < (token.accessTokenExpires as number)) {
         return token;
       }
       
-      // Access token has expired, try to refresh it
       return refreshAccessToken(token);
     },
     session({ session, token }) {

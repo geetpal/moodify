@@ -13,10 +13,8 @@ export default async function Home() {
 
   return (
     <div className="h-screen bg-black flex flex-col overflow-hidden">
-      {/* Hero Section */}
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-20">
         <div className="text-center max-w-4xl mx-auto">
-          {/* Logo */}
           <div className="mb-8">
             <h1 className="text-6xl md:text-8xl font-bold">
               <span className="text-green-400">Mood</span>
@@ -24,17 +22,14 @@ export default async function Home() {
             </h1>
           </div>
           
-          {/* Tagline */}
           <h2 className="text-2xl md:text-4xl font-semibold text-white mb-6">
             Discover music that puts you in your desired mood
           </h2>
           
-          {/* Description */}
           <p className="text-gray-400 text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
-            Tell us how you want to feel and we'll find the perfect songs using AI-powered mood detection and Spotify's vast music library.
+            Tell us how you want to feel and we&apos;ll find the perfect songs using AI-powered mood detection and Spotify&apos;s vast music library.
           </p>
           
-          {/* CTA Button */}
           <div className="mb-12">
             <SignInButton>
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -44,7 +39,6 @@ export default async function Home() {
             </SignInButton>
           </div>
           
-          {/* Features */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
             <div className="text-center">
               <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
