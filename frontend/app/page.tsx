@@ -1,4 +1,3 @@
-
 import { SignInButton } from "@/components/ui/signinButton";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
@@ -12,7 +11,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="h-screen bg-black flex flex-col overflow-hidden">
+    <div className="min-h-screen bg-black flex flex-col">
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-20">
         <div className="text-center max-w-4xl mx-auto">
           <div className="mb-8">
