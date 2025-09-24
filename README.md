@@ -10,7 +10,7 @@ Ever struggled to find music that matches your exact mood? Traditional music dis
 
 ## Live Demo
 
-**[Try Moodify →](https://moodify-awuhyje07-geetpal-singhs-projects.vercel.app/)**
+**[Try Moodify →](https://moodify-search.vercel.app/)**
 
 Sign in with Spotify to test the application.
 
